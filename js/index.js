@@ -2,7 +2,7 @@ const loadAiDataFetch = () => {
   const URL = "https://openapi.programming-hero.com/api/ai/tools";
   fetch(URL)
     .then((res) => res.json())
-    .then((data) => loadAIShow(data.data.tools))
+    .then((data) => loadAIShow(data.data.tools.slice(0, 6)))
     .catch((err) => {
       console.log(err);
     });
@@ -10,6 +10,7 @@ const loadAiDataFetch = () => {
 
 const loadAIShow = (showDAta) => {
   const aiContainer = document.getElementById("ai-container");
+  aiContainer.innerHTML = "";
 
   showDAta.forEach((data) => {
     const { image, features, name, published_in } = data;
@@ -49,4 +50,16 @@ const loadAIShow = (showDAta) => {
   });
 
   //   console.log(showDAta);
+};
+
+const showMore = async () => {
+  const URL = "https://openapi.programming-hero.com/api/ai/tools";
+
+  try {
+    const res = await fetch(URL);
+    const data = await res.json();
+    loadAIShow(data.data.tools);
+  } catch (err) {
+    console.log(err);
+  }
 };
