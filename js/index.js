@@ -31,7 +31,15 @@ const loadAIShow = (showDAta) => {
                 </ol>
                 <hr>
                 <p class="card-text fw-bold ">${name}</p>
-                <p class="fw-bold">Date: ${published_in}</p>
+
+         <div class="d-flex justify-content-between align-items-center">
+            <p class="fw-bold"><i class="fa fa-calendar" aria-hidden="true"></i> ${published_in}</p>
+                <div>
+                <button class="rounded-circle border-0"><i class="fas fa-arrow-right text-danger"></i></button>
+                </div>
+        </div>
+
+                
             </div>
         </div>
     
