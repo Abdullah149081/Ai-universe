@@ -1,20 +1,21 @@
 const loadAiDataFetch = () => {
+  spinnerLoad(true);
   const URL = "https://openapi.programming-hero.com/api/ai/tools";
   fetch(URL)
     .then((res) => res.json())
-    .then((data) => loadAIShow(data.data.tools.slice(0, 6)))
+    .then((data) => loadAIData(data.data.tools.slice(0, 6)))
     .catch((err) => {
       console.log(err);
     });
 };
 
-const loadAIShow = (showDAta) => {
+const loadAIData = (showData) => {
   const aiContainer = document.getElementById("ai-container");
   aiContainer.innerHTML = "";
 
-  showDAta.forEach((data) => {
+  showData.forEach((data) => {
     const { image, features, name, published_in } = data;
-    const [a, b, c] = features;
+    const [item1, item2, item3] = features;
 
     // console.log(features);
 
@@ -26,9 +27,10 @@ const loadAIShow = (showDAta) => {
             <div class="card-body">
                 <h5 class="card-title">Features :</h5>
                <ol>
-                <li>${a ? a : "not available"}</li>
-                <li>${b ? a : "not available"}</li>
-                <li>${c ? c : "not available"}</li>
+                <li>${item1 ? item1 : "not available"}</li>
+                <li>${item2 ? item1 : "not available"}</li>
+                <li>${item3 ? item3 : "not available"}</li>
+           
                 </ol>
                 <hr>
                 <p class="card-text fw-bold ">${name}</p>
@@ -49,17 +51,23 @@ const loadAIShow = (showDAta) => {
     aiContainer.appendChild(divTag);
   });
 
-  //   console.log(showDAta);
+  spinnerLoad(false);
 };
 
-const showMore = async () => {
+const showAllData = async () => {
+  spinnerLoad(true);
   const URL = "https://openapi.programming-hero.com/api/ai/tools";
 
   try {
     const res = await fetch(URL);
     const data = await res.json();
-    loadAIShow(data.data.tools);
+    loadAIData(data.data.tools);
   } catch (err) {
     console.log(err);
   }
+};
+
+const spinnerLoad = (isLoading) => {
+  const spinner = document.getElementById("spinner");
+  isLoading === true ? spinner.classList.remove("d-none") : spinner.classList.add("d-none");
 };
