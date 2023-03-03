@@ -94,10 +94,10 @@ const aiModal = (id) => {
 };
 
 const modalShow = (data) => {
-  const { description, pricing, features } = data;
+  const { description, pricing, features, integrations } = data;
   const [item, item2, item3] = pricing;
 
-  // console.log(s);
+  console.log(integrations);
 
   const modalDetails = document.getElementById("modal-details");
   modalDetails.innerHTML = `
@@ -125,7 +125,7 @@ const modalShow = (data) => {
           <!-- second -->
             <div>
            <h4>Integrations</h4>
-           <ul></ul>
+           <ul id="${integrations}"></ul>
 
             </div>
           </div>
@@ -144,5 +144,11 @@ const modalShow = (data) => {
     const liTag = document.createElement("li");
     liTag.innerText = values.feature_name;
     document.getElementById(features).appendChild(liTag);
+  });
+
+  integrations.forEach((items) => {
+    const liTag = document.createElement("li");
+    liTag.innerText = items;
+    document.getElementById(integrations).appendChild(liTag);
   });
 };
