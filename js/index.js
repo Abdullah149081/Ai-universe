@@ -94,10 +94,10 @@ const aiModal = (id) => {
 };
 
 const modalShow = (data) => {
-  const { description, pricing } = data;
+  const { description, pricing, features } = data;
   const [item, item2, item3] = pricing;
 
-  console.log(item);
+  // console.log(s);
 
   const modalDetails = document.getElementById("modal-details");
   modalDetails.innerHTML = `
@@ -114,6 +114,21 @@ const modalShow = (data) => {
             <p class="bg-light p-3 rounded fw-bold text-center  text-warning">${item2.price} <br />${item2.plan}</p>
             <p class="bg-light p-3 rounded fw-bold text-center  text-danger">${item3.price} <br />${item3.plan}</p>
           </div>
+          <!-- flex  -->
+          <div class="d-flex gap-2 justify-content-between mx-3 flex-md-row flex-column">
+            <!-- first  -->
+            <div>
+             <h4>Features</h4>
+             <ul id="${features}"></ul>
+
+            </div>
+          <!-- second -->
+            <div>
+           <h4>Integrations</h4>
+           <ul></ul>
+
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -121,11 +136,13 @@ const modalShow = (data) => {
   </div>
 </div>
 
- 
- 
- 
- 
- 
+
  
  `;
+  const feaValues = Object.values(features);
+  feaValues.forEach((values) => {
+    const liTag = document.createElement("li");
+    liTag.innerText = values.feature_name;
+    document.getElementById(features).appendChild(liTag);
+  });
 };
