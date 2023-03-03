@@ -95,10 +95,6 @@ const aiModal = (id) => {
 
 const modalShow = (data) => {
   const { description, pricing, features, integrations, image_link, accuracy, input_output_examples } = data;
-  const [item, item2, item3] = pricing;
-  const [IO] = input_output_examples;
-
-  // console.log(image_link[0]);
 
   const modalDetails = document.getElementById("modal-details");
   modalDetails.innerHTML = `
@@ -111,9 +107,9 @@ const modalShow = (data) => {
         <!-- 3 div  -->
         <div>
           <div class="d-flex gap-3 flex-md-row flex-column">
-            <p class="bg-light p-3 rounded fw-bold text-center  text-success">${item.price ? item.price : "Free of Cost/Basic"} <br />${item.plan ? item.plan : "no"}</p>
-            <p class="bg-light p-3 rounded fw-bold text-center  text-warning">${item2.price} <br />${item2.plan}</p>
-            <p class="bg-light p-3 rounded fw-bold text-center  text-danger">${item3.price} <br />${item3.plan}</p>
+            <p class="bg-light p-3 rounded fw-bold text-center  text-success">${pricing ? pricing[0].price : "Free of Cost/"} <br />${pricing ? pricing[0].plan : "Basic"}</p>
+            <p class="bg-light p-3 rounded fw-bold text-center  text-warning">${pricing ? pricing[1].price : "Free Of Cost/"} <br />${pricing ? pricing[1].plan : "Pro"}</p>
+            <p class="bg-light p-3 rounded fw-bold text-center  text-danger">${pricing ? pricing[2].price : "Free of Cost /"} <br />${pricing ? pricing[2].plan : "Enterprise"}</p>
           </div>
           <!-- flex  -->
           <div class="d-flex gap-2 justify-content-between mx-3 flex-md-row flex-column">
@@ -142,8 +138,8 @@ const modalShow = (data) => {
             <button class="btn position-absolute end-0  ">${accuracy.score * 100}% accuracy</button>
           </div>
           <div class="text-center p-3">
-            <h4>${IO.input}</h4>
-            <p class="w-50 mx-auto">${IO.output}</p>
+            <h4>${input_output_examples ? input_output_examples[0].input : "No! Not Yet! Take a break!!!"}</h4>
+            <p class="w-50 mx-auto">${input_output_examples ? input_output_examples[0].output : ""}</p>
           </div>
         </div>
     
