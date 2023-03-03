@@ -14,10 +14,7 @@ const loadAIData = (showData) => {
   aiContainer.innerHTML = "";
 
   showData.forEach((data) => {
-    const { image, features, name, published_in } = data;
-    const [item1, item2, item3] = features;
-
-    // console.log(features);
+    const { image, features, name, published_in, id } = data;
 
     const divTag = document.createElement("div");
     divTag.classList.add("col");
@@ -25,15 +22,11 @@ const loadAIData = (showData) => {
         <div class="card h-100">
             <img src="${image}" class="card-img-top p-3 h-50" alt="..." />
             <div class="card-body">
-                <h5 class="card-title">Features :</h5>
-               <ol>
-                <li>${item1 ? item1 : "not available"}</li>
-                <li>${item2 ? item1 : "not available"}</li>
-                <li>${item3 ? item3 : "not available"}</li>
-           
+                <h5 class="card-title">Features</h5>
+               <ol id="${id}">
                 </ol>
                 <hr>
-                <p class="card-text fw-bold ">${name}</p>
+                <p class="card-text fw-bold name-title">${name}</p>
 
          <div class="d-flex justify-content-between align-items-center">
             <p class="fw-bold"><i class="fa fa-calendar" aria-hidden="true"></i> ${published_in}</p>
@@ -47,8 +40,13 @@ const loadAIData = (showData) => {
         </div>
     
     `;
-
     aiContainer.appendChild(divTag);
+
+    features.forEach((name) => {
+      const liTag = document.createElement("li");
+      liTag.innerText = name;
+      document.getElementById(id).appendChild(liTag);
+    });
   });
 
   spinnerLoad(false);
