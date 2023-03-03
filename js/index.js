@@ -1,17 +1,29 @@
-const loadAiDataFetch = () => {
+const loadAIUniverseHub = () => {
+  loadAiDataFetch(6);
+};
+
+const loadAiDataFetch = (dataLimit) => {
   spinnerLoad(true);
   const URL = "https://openapi.programming-hero.com/api/ai/tools";
   fetch(URL)
     .then((res) => res.json())
-    .then((data) => loadAIData(data.data.tools.slice(0, 6)))
+    .then((data) => loadAIData(data.data.tools, dataLimit))
     .catch((err) => {
       console.log(err);
     });
 };
 
-const loadAIData = (showData) => {
+const loadAIData = (showData, dataLimit) => {
   const aiContainer = document.getElementById("ai-container");
   aiContainer.innerHTML = "";
+
+  const showBtn = document.getElementById("show-btn");
+  if (dataLimit && showData.length > 6) {
+    showData = showData.slice(0, 6);
+    showBtn.classList.remove("d-none");
+  } else {
+    showBtn.classList.add("d-none");
+  }
 
   showData.forEach((data) => {
     const { image, features, name, published_in, id } = data;
