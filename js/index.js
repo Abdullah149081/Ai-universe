@@ -94,10 +94,11 @@ const aiModal = (id) => {
 };
 
 const modalShow = (data) => {
-  const { description, pricing, features, integrations } = data;
+  const { description, pricing, features, integrations, image_link, accuracy, input_output_examples } = data;
   const [item, item2, item3] = pricing;
+  const [IO] = input_output_examples;
 
-  console.log(integrations);
+  // console.log(image_link[0]);
 
   const modalDetails = document.getElementById("modal-details");
   modalDetails.innerHTML = `
@@ -132,7 +133,25 @@ const modalShow = (data) => {
         </div>
       </div>
     </div>
-    <div class="col-lg-6">.col-md-4 .ms-auto</div>
+    <div class="col-lg-6 mt-4 mt-md-0">
+    
+    
+      <div class="border border-success h-100 rounded shadow ">
+          <div class="p-2 position-relative">
+            <img src="${image_link[0]}" alt="" class="img-fluid border border-success rounded  " />
+            <button class="btn position-absolute end-0  ">${accuracy.score * 100}% accuracy</button>
+          </div>
+          <div class="text-center p-3">
+            <h4>${IO.input}</h4>
+            <p class="w-50 mx-auto">${IO.output}</p>
+          </div>
+        </div>
+    
+    
+    
+
+    
+    </div>
   </div>
 </div>
 
