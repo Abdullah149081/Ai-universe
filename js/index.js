@@ -137,7 +137,7 @@ const modalShow = (data) => {
           <!-- second -->
             <div>
            <h4>Integrations</h4>
-           <ul id="${integrations}"></ul>
+           <ul id="${integrations}">${integrations ? "" : "No data Found"}</ul>
 
             </div>
           </div>
@@ -192,4 +192,3 @@ const sortByDate = () => {
   let sortDate = DateStoreData.sort((item1, item2) => new Date(item1.published_in) - new Date(item2.published_in));
   loadAIData(sortDate);
 };
-
