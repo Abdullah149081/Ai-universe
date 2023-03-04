@@ -137,7 +137,7 @@ const modalShow = (data) => {
       <div class="border border-success h-100 rounded shadow ">
           <div class="p-2 position-relative">
             <img src="${image_link[0]}" alt="" class="img-fluid border border-success rounded  " />
-            <button  class="btn position-absolute end-0  ">${accuracy.score * 100}% accuracy</button>
+            <button id="accuracy-btn" class="btn position-absolute end-0  d-none ">${accuracy.score * 100}% accuracy</button>
           </div>
           <div class="text-center p-3">
             <h4>${input_output_examples ? input_output_examples[0].input : "No! Not Yet! Take a break!!!"}</h4>
@@ -168,4 +168,6 @@ const modalShow = (data) => {
     liTag.innerText = items;
     document.getElementById(integrations).appendChild(liTag);
   });
+  const accuracyBtn = document.getElementById("accuracy-btn");
+  accuracy.score === null ? accuracyBtn.classList.add("d-none") : accuracyBtn.classList.remove("d-none");
 };
