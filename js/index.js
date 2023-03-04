@@ -107,7 +107,9 @@ const modalShow = (data) => {
         <!-- 3 div  -->
         <div>
           <div class="d-flex gap-3 flex-md-row flex-column">
-            <p class="bg-light p-3 rounded fw-bold text-center  text-success">${pricing ? pricing[0].price : "Free of Cost/"} <br />${pricing ? pricing[0].plan : "Basic"}</p>
+            <p class="bg-light p-3 rounded fw-bold text-center  text-success">${pricing === null || pricing[0].price === "0" ? "Free of Cost/" : pricing[0].price} <br />${
+    pricing ? pricing[0].plan : "Basic"
+  }</p>
             <p class="bg-light p-3 rounded fw-bold text-center  text-warning">${pricing ? pricing[1].price : "Free Of Cost/"} <br />${pricing ? pricing[1].plan : "Pro"}</p>
             <p class="bg-light p-3 rounded fw-bold text-center  text-danger">${pricing ? pricing[2].price : "Free of Cost /"} <br />${pricing ? pricing[2].plan : "Enterprise"}</p>
           </div>
@@ -135,7 +137,7 @@ const modalShow = (data) => {
       <div class="border border-success h-100 rounded shadow ">
           <div class="p-2 position-relative">
             <img src="${image_link[0]}" alt="" class="img-fluid border border-success rounded  " />
-            <button class="btn position-absolute end-0  ">${accuracy.score * 100}% accuracy</button>
+            <button  class="btn position-absolute end-0  ">${accuracy.score * 100}% accuracy</button>
           </div>
           <div class="text-center p-3">
             <h4>${input_output_examples ? input_output_examples[0].input : "No! Not Yet! Take a break!!!"}</h4>
@@ -161,7 +163,7 @@ const modalShow = (data) => {
     document.getElementById(features).appendChild(liTag);
   });
 
-  integrations.forEach((items) => {
+  integrations?.forEach((items) => {
     const liTag = document.createElement("li");
     liTag.innerText = items;
     document.getElementById(integrations).appendChild(liTag);
