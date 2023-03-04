@@ -1,18 +1,27 @@
+let DateStoreData = [];
+
+// load primary API
 const loadAIUniverseHub = () => {
   loadAiDataFetch(6);
 };
 
+// fetch Api
 const loadAiDataFetch = (dataLimit) => {
   spinnerLoad(true);
   const URL = "https://openapi.programming-hero.com/api/ai/tools";
   fetch(URL)
     .then((res) => res.json())
-    .then((data) => loadAIData(data.data.tools, dataLimit))
+    .then((data) => {
+      DateStoreData = data.data.tools;
+
+      loadAIData(data.data.tools, dataLimit);
+    })
     .catch((err) => {
       console.log(err);
     });
 };
 
+// Show Api Data
 const loadAIData = (showData, dataLimit) => {
   const aiContainer = document.getElementById("ai-container");
   aiContainer.innerHTML = "";
@@ -64,6 +73,7 @@ const loadAIData = (showData, dataLimit) => {
   spinnerLoad(false);
 };
 
+// show more Button click Load all data
 const showAllData = async () => {
   spinnerLoad(true);
   const URL = "https://openapi.programming-hero.com/api/ai/tools";
@@ -77,11 +87,13 @@ const showAllData = async () => {
   }
 };
 
+// spinner
 const spinnerLoad = (isLoading) => {
   const spinner = document.getElementById("spinner");
   isLoading === true ? spinner.classList.remove("d-none") : spinner.classList.add("d-none");
 };
 
+// Modal data fetch api
 const aiModal = (id) => {
   const URL = `https://openapi.programming-hero.com/api/ai/tool/${id}`;
 
@@ -93,6 +105,7 @@ const aiModal = (id) => {
     });
 };
 
+// modal data show
 const modalShow = (data) => {
   const { description, pricing, features, integrations, image_link, accuracy, input_output_examples } = data;
 
@@ -141,7 +154,7 @@ const modalShow = (data) => {
           </div>
           <div class="text-center p-3">
             <h4>${input_output_examples ? input_output_examples[0].input : "No! Not Yet! Take a break!!!"}</h4>
-            <p class="w-50 mx-auto">${input_output_examples ? input_output_examples[0].output : ""}</p>
+            <p class="w-50 mx-auto">${input_output_examples ? input_output_examples[0].output : "No! Not Yet! Take a break!!!"}</p>
           </div>
         </div>
     
@@ -156,6 +169,7 @@ const modalShow = (data) => {
 
  
  `;
+  //  Dynamic features Add
   const feaValues = Object.values(features);
   feaValues.forEach((values) => {
     const liTag = document.createElement("li");
@@ -163,11 +177,19 @@ const modalShow = (data) => {
     document.getElementById(features).appendChild(liTag);
   });
 
+  // Dynamic integrations add
   integrations?.forEach((items) => {
     const liTag = document.createElement("li");
     liTag.innerText = items;
     document.getElementById(integrations).appendChild(liTag);
   });
+  // accuracyBtn hide and show
   const accuracyBtn = document.getElementById("accuracy-btn");
   accuracy.score === null ? accuracyBtn.classList.add("d-none") : accuracyBtn.classList.remove("d-none");
 };
+// Short by date button
+const sortByDate = () => {
+  let sortDate = DateStoreData.sort((item1, item2) => new Date(item1.published_in) - new Date(item2.published_in));
+  loadAIData(sortDate);
+};
+
